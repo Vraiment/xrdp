@@ -16,8 +16,13 @@ AM_CPPFLAGS += -DXRDP_DEBUG
 endif
 
 if SESMAN_NOPAM
+if !MACOS
 AUTH_C = verify_user.c
 AUTH_LIB = -lcrypt
+else
+AUTH_C = verify_user_macos.m
+AUTH_LIB =
+endif
 else
 if SESMAN_BSD
 AUTH_C = verify_user_bsd.c
