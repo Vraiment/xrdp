@@ -21,7 +21,7 @@ AUTH_C = verify_user.c
 AUTH_LIB = -lcrypt
 else
 AUTH_C = verify_user_macos.m
-AUTH_LIB =
+xrdp_sesman_LDFLAGS = -framework Foundation -framework Collaboration
 endif
 else
 if SESMAN_BSD
