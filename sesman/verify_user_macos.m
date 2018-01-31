@@ -68,35 +68,35 @@ auth_userpass(const char *user, const char *pass, int *errorcode)
 int
 auth_start_session(long in_val, int in_display)
 {
+    /* NOOP */
     return 0;
 }
 
 int
 auth_stop_session(long in_val)
 {
+    /* NOOP */
     return 0;
 }
 
 int
 auth_end(long in_val)
 {
+    /* NOOP */
     return 0;
 }
 
 int
 auth_set_env(long in_val)
 {
+    /* NOOP */
     return 0;
 }
 
+/* Not used */
 int
-auth_check_pwd_chg(const char *user)
-{
-    return 0;
-}
+auth_check_pwd_chg(const char *user);
 
+/* Not used */
 int
-auth_change_pwd(const char *user, const char *newpwd)
-{
-    return 0;
-}
+auth_change_pwd(const char *user, const char *newpwd);
