@@ -31,10 +31,38 @@
 #import <Foundation/Foundation.h>
 #import <Collaboration/Collaboration.h>
 
+/*
+ * References for collaboration framework:
+ *     Framework API: https://developer.apple.com/documentation/collaboration?language=objc
+ *     CBIdentityAuthority: https://developer.apple.com/documentation/collaboration/cbidentityauthority?language=objc
+ *     CBIdentity: https://developer.apple.com/documentation/collaboration/cbidentity?language=objc
+ *     CBUserIdentity: https://developer.apple.com/documentation/collaboration/cbuseridentity?language=objc#topics
+ */
+
 long
 auth_userpass(const char *user, const char *pass, int *errorcode)
 {
-    return 0;
+    NSString *userName = [NSString stringWithCString:user
+                                   encoding:[NSString defaultCStringEncoding]];
+    NSString *password = [NSString stringWithCString:pass
+                                   encoding:[NSString defaultCStringEncoding]];
+
+    /*
+     * If the identity should be grabed for network (like LDAP)
+     */
+    CBIdentityAuthority *localAuthority =
+        [CBIdentityAuthority localIdentityAuthority];
+
+    CBIdentity *identity = [CBIdentity identityWithName:userName
+                                       authority:localAuthority];
+    if (identity == nil || ![identity isKindOfClass:[CBUserIdentity class]])
+    {
+        return 0;
+    }
+
+    CBUserIdentity *userIdentity = (CBUserIdentity *) identity;
+    return userIdentity.isEnabled &&
+           [userIdentity authenticateWithPassword:password];
 }
 
 int
